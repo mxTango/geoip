@@ -48,22 +48,6 @@
       "type": "text",
       "action": "add",
       "args": {
-        "name": "cloudflare",
-        "uri": "https://www.cloudflare.com/ips-v4"
-      }
-    },
-    {
-      "type": "text",
-      "action": "add",
-      "args": {
-        "name": "cloudflare",
-        "uri": "https://www.cloudflare.com/ips-v6"
-      }
-    },
-    {
-      "type": "text",
-      "action": "add",
-      "args": {
         "name": "telegram",
         "uri": "https://core.telegram.org/resources/cidr.txt"
       }
@@ -74,69 +58,16 @@
       "args": {
         "inputDir": "./data"
       }
-    },
-    {
-      "type": "private",
-      "action": "add"
     }
   ],
-  "output": [
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "output",
-      "args": {
-        "outputName": "geoip.dat"
-      }
-    },
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "output",
-      "args": {
-        "outputName": "geoip-only-cn-private.dat",
-        "wantedList": ["cn", "private"]
-      }
-    },
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "output",
-      "args": {
-        "outputName": "geoip-asn.dat",
-        "wantedList": [
-          "cloudflare",
-          "cloudfront",
-          "facebook",
-          "fastly",
-          "google",
-          "netflix",
-          "telegram",
-          "twitter"
-        ]
-      }
-    },
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "output",
-      "args": {
-        "oneFilePerList": true,
-        "wantedList": ["cn", "private"]
-      }
-    },
+    "output": [
     {
       "type": "maxmindMMDB",
       "action": "output",
       "args": {
         "outputName": "Country.mmdb",
         "overwriteList": [
-          "cn",
-          "private",
-          "cloudflare",
-          "cloudfront",
-          "facebook",
-          "fastly",
-          "google",
-          "netflix",
-          "telegram",
-          "twitter"
+          "cn"
         ]
       }
     },
@@ -144,25 +75,8 @@
       "type": "maxmindMMDB",
       "action": "output",
       "args": {
-        "outputName": "Country-only-cn-private.mmdb",
-        "wantedList": ["cn", "private"]
-      }
-    },
-    {
-      "type": "maxmindMMDB",
-      "action": "output",
-      "args": {
-        "outputName": "Country-asn.mmdb",
-        "wantedList": [
-          "cloudflare",
-          "cloudfront",
-          "facebook",
-          "fastly",
-          "google",
-          "netflix",
-          "telegram",
-          "twitter"
-        ]
+        "outputName": "Country-only-cn.mmdb",
+        "wantedList": ["cn"]
       }
     },
     {
