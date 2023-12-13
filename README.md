@@ -1,131 +1,13 @@
 # 简介
-
-本项目每周四自动生成 GeoIP 文件，同时提供命令行界面（CLI）供用户自行定制 GeoIP 文件，包括但不限于 V2Ray dat 格式路由规则文件 `geoip.dat` 和 MaxMind mmdb 格式文件 `Country.mmdb`。
-
-This project releases GeoIP files automatically every Thursday. It also provides a command line interface(CLI) for users to customize their own GeoIP files, included but not limited to V2Ray dat format file `geoip.dat` and MaxMind mmdb format file `Country.mmdb`.
+Forked From Loyalsoldier/geoip
 
 ## 与官方版 GeoIP 的区别
 
 - 中国大陆 IPv4 地址数据融合了 [IPIP.net](https://github.com/17mon/china_ip_list/blob/master/china_ip_list.txt) 和 [@gaoyifan/china-operator-ip](https://github.com/gaoyifan/china-operator-ip/blob/ip-lists/china.txt)
 - 中国大陆 IPv6 地址数据融合了 MaxMind GeoLite2 和 [@gaoyifan/china-operator-ip](https://github.com/gaoyifan/china-operator-ip/blob/ip-lists/china6.txt)
 - 新增类别（方便有特殊需求的用户使用）：
-  - `geoip:cloudflare`（`GEOIP,CLOUDFLARE`）
-  - `geoip:cloudfront`（`GEOIP,CLOUDFRONT`）
-  - `geoip:facebook`（`GEOIP,FACEBOOK`）
-  - `geoip:fastly`（`GEOIP,FASTLY`）
   - `geoip:google`（`GEOIP,GOOGLE`）
-  - `geoip:netflix`（`GEOIP,NETFLIX`）
-  - `geoip:telegram`（`GEOIP,TELEGRAM`）
-  - `geoip:twitter`（`GEOIP,TWITTER`）
 
-## 参考配置
-
-在 [V2Ray](https://github.com/v2fly/v2ray-core) 中使用本项目 `.dat` 格式文件的参考配置：
-
-```json
-"routing": {
-  "rules": [
-    {
-      "type": "field",
-      "outboundTag": "Direct",
-      "ip": [
-        "geoip:cn",
-        "geoip:private",
-        "ext:cn.dat:cn",
-        "ext:private.dat:private",
-        "ext:geoip-only-cn-private.dat:cn",
-        "ext:geoip-only-cn-private.dat:private"
-      ]
-    },
-    {
-      "type": "field",
-      "outboundTag": "Proxy",
-      "ip": [
-        "geoip:us",
-        "geoip:jp",
-        "geoip:facebook",
-        "geoip:telegram",
-        "ext:geoip-asn.dat:facebook",
-        "ext:geoip-asn.dat:telegram"
-      ]
-    }
-  ]
-}
-```
-
-在 [Clash](https://github.com/Dreamacro/clash) 中使用本项目 `.mmdb` 格式文件的参考配置：
-
-```yaml
-rules:
-  - GEOIP,PRIVATE,policy,no-resolve
-  - GEOIP,FACEBOOK,policy
-  - GEOIP,CN,policy,no-resolve
-```
-
-在 [Leaf](https://github.com/eycorsican/leaf) 中使用本项目 `.mmdb` 格式文件的参考配置，查看[官方 README](https://github.com/eycorsican/leaf/blob/master/README.zh.md#geoip)。
-
-## 下载地址
-
-> 如果无法访问域名 `raw.githubusercontent.com`，可以使用第二个地址 `cdn.jsdelivr.net`。
-> *.sha256sum 为校验文件。
-
-### V2Ray dat 格式路由规则文件
-
-> 适用于 [V2Ray](https://github.com/v2fly/v2ray-core)、[Xray-core](https://github.com/XTLS/Xray-core) 和 [Trojan-Go](https://github.com/p4gefau1t/trojan-go)。
-
-- **geoip.dat**：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip.dat](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip.dat)
-- **geoip.dat.sha256sum**：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat.sha256sum](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat.sha256sum)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip.dat.sha256sum](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip.dat.sha256sum)
-- **geoip-only-cn-private.dat**（精简版 GeoIP，只包含 `geoip:cn` 和 `geoip:private`）：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip-only-cn-private.dat](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip-only-cn-private.dat)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip-only-cn-private.dat](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip-only-cn-private.dat)
-- **geoip-only-cn-private.dat.sha256sum**：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip-only-cn-private.dat.sha256sum](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip-only-cn-private.dat.sha256sum)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip-only-cn-private.dat.sha256sum](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip-only-cn-private.dat.sha256sum)
-- **geoip-asn.dat**（精简版 GeoIP，只包含上述新增类别）：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip-asn.dat](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip-asn.dat)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip-asn.dat](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip-asn.dat)
-- **geoip-asn.dat.sha256sum**：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip-asn.dat.sha256sum](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip-asn.dat.sha256sum)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip-asn.dat.sha256sum](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip-asn.dat.sha256sum)
-- **cn.dat**（精简版 GeoIP，只包含 `geoip:cn`）：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/cn.dat](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/cn.dat)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/cn.dat](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/cn.dat)
-- **cn.dat.sha256sum**：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/cn.dat.sha256sum](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/cn.dat.sha256sum)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/cn.dat.sha256sum](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/cn.dat.sha256sum)
-- **private.dat**（精简版 GeoIP，只包含 `geoip:private`）：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/private.dat](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/private.dat)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/private.dat](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/private.dat)
-- **private.dat.sha256sum**：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/private.dat.sha256sum](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/private.dat.sha256sum)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/private.dat.sha256sum](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/private.dat.sha256sum)
-
-### MaxMind mmdb 格式文件
-
-> 适用于 [Clash](https://github.com/Dreamacro/clash) 和 [Leaf](https://github.com/eycorsican/leaf)。
-
-- **Country.mmdb**：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb)
-- **Country.mmdb.sha256sum**：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb.sha256sum](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb.sha256sum)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb.sha256sum](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb.sha256sum)
-- **Country-only-cn-private.mmdb**（精简版 GeoIP，只包含 `GEOIP,CN` 和 `GEOIP,PRIVATE`）：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-only-cn-private.mmdb](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-only-cn-private.mmdb)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-only-cn-private.mmdb](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-only-cn-private.mmdb)
-- **Country-only-cn-private.mmdb.sha256sum**：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-only-cn-private.mmdb.sha256sum](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-only-cn-private.mmdb.sha256sum)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-only-cn-private.mmdb.sha256sum](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-only-cn-private.mmdb.sha256sum)
-- **Country-asn.mmdb**（精简版 GeoIP，只包含上述新增类别）：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-asn.mmdb](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-asn.mmdb)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-asn.mmdb](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-asn.mmdb)
-- **Country-asn.mmdb.sha256sum**：
-  - [https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-asn.mmdb.sha256sum](https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-asn.mmdb.sha256sum)
-  - [https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-asn.mmdb.sha256sum](https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-asn.mmdb.sha256sum)
 
 ## 定制 GeoIP 文件
 
@@ -181,53 +63,7 @@ These two concepts are notable: `input` and `output`. The `input` is the data so
 
 为了确保某些指定的列表、被修改的列表一定囊括属于它的所有 IP 或 CIDR 数据，可在 `output` 输出格式为 `maxmindMMDB` 的配置中增加选项 `overwriteList`，该选项中指定的列表会在最后逐一写入，列表中最后一项优先级最高。若已设置选项 `wantedList`，则无需设置 `overwriteList`。`wantedList` 中指定的列表会在最后逐一写入，列表中最后一项优先级最高。
 
-## CLI 功能展示
 
-可通过 `go install -v github.com/Loyalsoldier/geoip@latest` 直接安装 CLI。
-
-```bash
-$ ./geoip -h
-Usage of ./geoip:
-  -c string
-    	URI of the JSON format config file, support both local file path and remote HTTP(S) URL (default "config.json")
-  -l	List all available input and output formats
-
-$ ./geoip -c config.json
-2021/08/29 12:11:35 ✅ [v2rayGeoIPDat] geoip.dat --> output/dat
-2021/08/29 12:11:35 ✅ [v2rayGeoIPDat] geoip-only-cn-private.dat --> output/dat
-2021/08/29 12:11:35 ✅ [v2rayGeoIPDat] geoip-asn.dat --> output/dat
-2021/08/29 12:11:35 ✅ [v2rayGeoIPDat] cn.dat --> output/dat
-2021/08/29 12:11:35 ✅ [v2rayGeoIPDat] private.dat --> output/dat
-2021/08/29 12:11:39 ✅ [maxmindMMDB] Country.mmdb --> output/maxmind
-2021/08/29 12:11:39 ✅ [maxmindMMDB] Country-only-cn-private.mmdb --> output/maxmind
-2021/08/29 12:11:39 ✅ [text] netflix.txt --> output/text
-2021/08/29 12:11:39 ✅ [text] telegram.txt --> output/text
-2021/08/29 12:11:39 ✅ [text] cn.txt --> output/text
-2021/08/29 12:11:39 ✅ [text] cloudflare.txt --> output/text
-2021/08/29 12:11:39 ✅ [text] cloudfront.txt --> output/text
-2021/08/29 12:11:39 ✅ [text] facebook.txt --> output/text
-2021/08/29 12:11:39 ✅ [text] fastly.txt --> output/text
-
-$ ./geoip -l
-All available input formats:
-  - v2rayGeoIPDat (Convert V2Ray GeoIP dat to other formats)
-  - maxmindMMDB (Convert MaxMind mmdb database to other formats)
-  - maxmindGeoLite2CountryCSV (Convert MaxMind GeoLite2 country CSV data to other formats)
-  - private (Convert LAN and private network CIDR to other formats)
-  - text (Convert plaintext IP & CIDR to other formats)
-  - clashRuleSetClassical (Convert classical type of Clash RuleSet to other formats (just processing IP & CIDR lines))
-  - clashRuleSet (Convert ipcidr type of Clash RuleSet to other formats)
-  - surgeRuleSet (Convert Surge RuleSet to other formats (just processing IP & CIDR lines))
-  - cutter (Remove data from previous steps)
-  - test (Convert specific CIDR to other formats (for test only))
-All available output formats:
-  - v2rayGeoIPDat (Convert data to V2Ray GeoIP dat format)
-  - maxmindMMDB (Convert data to MaxMind mmdb database format)
-  - clashRuleSetClassical (Convert data to classical type of Clash RuleSet)
-  - clashRuleSet (Convert data to ipcidr type of Clash RuleSet)
-  - surgeRuleSet (Convert data to Surge RuleSet)
-  - text (Convert data to plaintext CIDR format)
-```
 
 ## License
 
@@ -235,6 +71,3 @@ All available output formats:
 
 This product includes GeoLite2 data created by MaxMind, available from [MaxMind](http://www.maxmind.com).
 
-## 项目 Star 数增长趋势
-
-[![Stargazers over time](https://starchart.cc/Loyalsoldier/geoip.svg)](https://starchart.cc/Loyalsoldier/geoip)
